@@ -1,7 +1,0 @@
-public class DiscountFactory : Object {
-
-	static Discount CreateDiscount (string rate) {
-
-		return new DiscountRate(double.parse (rate));
-	}
-}
