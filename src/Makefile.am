@@ -20,7 +20,7 @@ AM_CFLAGS =\
 bin_PROGRAMS = pricecalc
 
 pricecalc_SOURCES = \
-	pricecalc.vala config.vapi
+	pricecalc.vala config.vapi discount.vala discount_factory.vala
 
 pricecalc_VALAFLAGS =  \
 	--pkg gtk+-3.0

@@ -54,8 +54,8 @@ build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = pricecalc$(EXEEXT)
 subdir = src
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in pricecalc.c \
-	pricecalc_vala.stamp
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in discount.c \
+	discount_factory.c pricecalc.c pricecalc_vala.stamp
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -66,7 +66,8 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(uidir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_pricecalc_OBJECTS = pricecalc.$(OBJEXT)
+am_pricecalc_OBJECTS = pricecalc.$(OBJEXT) discount.$(OBJEXT) \
+	discount_factory.$(OBJEXT)
 pricecalc_OBJECTS = $(am_pricecalc_OBJECTS)
 am__DEPENDENCIES_1 =
 pricecalc_DEPENDENCIES = $(am__DEPENDENCIES_1)
@@ -280,7 +281,7 @@ AM_CFLAGS = \
 	 -g
 
 pricecalc_SOURCES = \
-	pricecalc.vala config.vapi
+	pricecalc.vala config.vapi discount.vala discount_factory.vala
 
 pricecalc_VALAFLAGS = \
 	--pkg gtk+-3.0
@@ -380,6 +381,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/discount.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/discount_factory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pricecalc.Po@am__quote@
 
 .c.o:
@@ -407,9 +410,19 @@ $(srcdir)/pricecalc.c: $(srcdir)/pricecalc_vala.stamp
 	@if test -f $@; then :; else \
 	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/pricecalc_vala.stamp; \
 	fi
-$(srcdir)/pricecalc_vala.stamp: pricecalc.vala config.vapi
+$(srcdir)/discount.c: $(srcdir)/pricecalc_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/pricecalc_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/pricecalc_vala.stamp; \
+	fi
+$(srcdir)/discount_factory.c: $(srcdir)/pricecalc_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/pricecalc_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/pricecalc_vala.stamp; \
+	fi
+$(srcdir)/pricecalc_vala.stamp: pricecalc.vala config.vapi discount.vala discount_factory.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(pricecalc_VALAFLAGS) $(VALAFLAGS) -C pricecalc.vala config.vapi
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(pricecalc_VALAFLAGS) $(VALAFLAGS) -C pricecalc.vala config.vapi discount.vala discount_factory.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:
@@ -558,6 +571,8 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-rm -f discount.c
+	-rm -f discount_factory.c
 	-rm -f pricecalc.c
 	-rm -f pricecalc_vala.stamp
 clean: clean-am
