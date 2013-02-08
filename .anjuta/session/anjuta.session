@@ -7,13 +7,12 @@ Shortcut=pricecalc-0.1//src//pricecalc
 Expand=pricecalc-0.1%%%pricecalc-0.1//src%%%pricecalc-0.1//src//pricecalc%%%pricecalc-0.1//src//ui
 
 [File Loader]
-Files=../../src/pricecalc.vala#75%%%../../src/discount.vala#13%%%../../src/discount_factory.vala#5
+Files=../../src/pricecalc.vala#31%%%../../src/discount.vala#13%%%../../src/discount_factory.vala#5
 
 [Document Manager]
 bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
 
 [Execution]
-Program arguments=
 Program uri=../../src/pricecalc
 Run in terminal=2
 Working directories=../../../pricecalc-0.1

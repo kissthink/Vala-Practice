@@ -28,7 +28,7 @@ public class MainWindow : Object
 	 * or installing
 	 */
 	//const string UI_FILE = Config.PACKAGE_DATA_DIR + "/" + "pricecalc.ui";
-	const string UI_FILE = "/home/sd/pricecalc-0.1/src/pricecalc.ui"; //"src/pricecalc.ui";
+	const string UI_FILE = "src/pricecalc.ui";
 
 	/* ANJUTA: Widgets declaration for pricecalc.ui - DO NOT REMOVE */
 	public Entry entry_price { get; set; }
